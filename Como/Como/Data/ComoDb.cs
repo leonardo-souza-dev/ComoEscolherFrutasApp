@@ -12,27 +12,27 @@ namespace Como.Data
         public ComoDb(string dbPath)
         {
             database = new SQLiteAsyncConnection(dbPath);
-            database.CreateTableAsync<Fruta>().Wait();
+            database.CreateTableAsync<Dica>().Wait();
         }
 
-        public Task<List<Fruta>> GetUsuarioAsync()
+        public Task<List<Dica>> GetUsuarioAsync()
         {
-            return database.Table<Fruta>().ToListAsync();
+            return database.Table<Dica>().ToListAsync();
         }
 
-        public Task<List<Fruta>> GetItemsNotDoneAsync()
+        public Task<List<Dica>> GetItemsNotDoneAsync()
         {
-            return database.QueryAsync<Fruta>("SELECT * FROM [UsuarioModel] WHERE [Done] = 0");
+            return database.QueryAsync<Dica>("SELECT * FROM [UsuarioModel] WHERE [Done] = 0");
         }
 
-        public Task<Fruta> GetItemAsync(int id)
+        public Task<Dica> GetItemAsync(int id)
         {
-            var usuario = database.Table<Fruta>().Where(i => i.ID == id).FirstOrDefaultAsync();
+            var usuario = database.Table<Dica>().Where(i => i.ID == id).FirstOrDefaultAsync();
 
             return usuario;
         }
 
-        public Task<int> SaveItemAsync(Fruta item)
+        public Task<int> SaveItemAsync(Dica item)
         {
             if (item.ID != 0)
             {
@@ -44,7 +44,7 @@ namespace Como.Data
             }
         }
 
-        public Task<int> DeleteItemAsync(Fruta item)
+        public Task<int> DeleteItemAsync(Dica item)
         {
             return database.DeleteAsync(item);
         }

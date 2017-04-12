@@ -6,25 +6,25 @@ using System.ComponentModel;
 
 namespace Como.ViewModel
 {
-    public class FrutaViewModel : INotifyPropertyChanged
+    public class DicaViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Fruta> Frutas { get { return _frutas; } set { _frutas = value; OnPropertyChanged("Frutas"); } }
-        private ObservableCollection<Fruta> _frutas = new ObservableCollection<Fruta>();
+        public ObservableCollection<Dica> Dicas { get { return _dicas; } set { _dicas = value; OnPropertyChanged("Dicas"); } }
+        private ObservableCollection<Dica> _dicas = new ObservableCollection<Dica>();
 
 
-        public async void ObterFrutas()
+        public async void ObterDicas()
         {
-            var listaFrutas = new List<Fruta>();
+            var lista = new List<Dica>();
 
-            listaFrutas = await FrutaRepositorio.ObterFrutas();
+            lista = await DicaRepositorio.ObterDicas();
 
-            for (int index = 0; index < listaFrutas.Count; index++)
+            for (int index = 0; index < lista.Count; index++)
             {
-                var fruta = listaFrutas[index];
+                var dica = lista[index];
 
-                if (index + 1 > Frutas.Count || Frutas[index].Equals(fruta))
+                if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
-                    Frutas.Insert(index, fruta);
+                    Dicas.Insert(index, dica);
                 }
             }
         }

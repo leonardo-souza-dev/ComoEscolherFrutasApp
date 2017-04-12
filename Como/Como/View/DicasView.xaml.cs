@@ -8,13 +8,13 @@ using Xamarin.Forms;
 
 namespace Como.View
 {
-    public partial class ListaView : ContentPage
+    public partial class DicasView : ContentPage
     {
-        public ListaView()
+        public DicasView()
         {
             this.InitializeComponent();
 
-            App.FrutasVM.ObterFrutas();
+            App.FrutasVM.ObterDicas();
 
             this.BindingContext = App.FrutasVM;
         }

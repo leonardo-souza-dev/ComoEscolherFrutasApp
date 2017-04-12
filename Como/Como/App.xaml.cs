@@ -12,7 +12,7 @@ namespace Como
     {
         static ComoDb database;
 
-        public static FrutaViewModel FrutasVM { get; set; }
+        public static DicaViewModel FrutasVM { get; set; }
         public static ConfiguracaoApp Config { get; set; }
 
 
@@ -22,8 +22,8 @@ namespace Como
 
             Config = new ConfiguracaoApp();
 
-            FrutasVM = new FrutaViewModel();
-            MainPage = new ListaView();
+            FrutasVM = new DicaViewModel();
+            MainPage = new DicasView();
         }
 
         public static ComoDb Database

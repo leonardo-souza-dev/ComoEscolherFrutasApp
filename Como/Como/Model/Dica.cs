@@ -11,16 +11,16 @@ using System.Runtime.Serialization;
 namespace Como.Model
 {
     [DataContract]
-    public class Fruta : INotifyPropertyChanged
+    public class Dica : INotifyPropertyChanged
     {
-        [DataMember(Name = "frutaId")]
+        [DataMember(Name = "idDica")]
         public int ID { get; set; }
 
-        [DataMember(Name = "nome")]
-        public string Nome { get; set; }
+        [DataMember(Name = "nomeFruta")]
+        public string NomeFruta { get; set; }
 
-        [DataMember(Name = "dica")]
-        public string Dica { get; set; }
+        [DataMember(Name = "descricao")]
+        public string Descricao { get; set; }
 
         [DataMember(Name = "nomeArquivo")]
         public string NomeArquivo { get { return nomeArquivo; } set { nomeArquivo = value; OnPropertyChanged("NomeArquivo"); OnPropertyChanged("UrlImagem"); } }

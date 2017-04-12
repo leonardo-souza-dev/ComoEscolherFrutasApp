@@ -13,11 +13,11 @@ using System.IO;
 
 namespace Como.Data
 {
-    public static class FrutaRepositorio
+    public static class DicaRepositorio
     {
-        public static async Task<List<Fruta>> ObterFrutas()
+        public static async Task<List<Dica>> ObterDicas()
         {
-            var frutas = await Resposta<List<Fruta>>(null, "obterfrutas");
+            var frutas = await Resposta<List<Dica>>(null, "obterdicas");
 
             Objetos(frutas);
             Debug.WriteLine("<DEBUG ObterFrutas>");
@@ -25,7 +25,7 @@ namespace Como.Data
             {
                 Debug.WriteLine("fruta.ID: " + item.ID);
                 Debug.WriteLine("fruta.ImagemUrl: " + item.UrlImagem);
-                Debug.WriteLine("fruta.Dica: "+ item.Dica);
+                Debug.WriteLine("fruta.Dica: "+ item.Descricao);
             }
             Debug.WriteLine("</DEBUG ObterFrutas>");
             return frutas;
@@ -65,14 +65,14 @@ namespace Como.Data
             return objectos;
         }
 
-        private static Fruta Convert(System.IO.Stream stream)
+        private static Dica Convert(System.IO.Stream stream)
         {
-            var ser3 = new DataContractJsonSerializer(typeof(Fruta));
+            var ser3 = new DataContractJsonSerializer(typeof(Dica));
             stream.Position = 0;
-            Fruta resposta3 = (Fruta)ser3.ReadObject(stream);
+            Dica resposta3 = (Dica)ser3.ReadObject(stream);
             Debug.WriteLine("PostModel");
             Debug.WriteLine(resposta3.ID);
-            Debug.WriteLine(resposta3.Dica);
+            Debug.WriteLine(resposta3.Descricao);
             return resposta3;
         }
     }

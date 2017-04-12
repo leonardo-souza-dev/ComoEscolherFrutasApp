@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Como.View.ListaView" BackgroundColor="White" Title="lista">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Como.View.DicasView" BackgroundColor="White" Title="lista">
     <ContentPage.Content>
         <StackLayout Padding="0" Margin="0" Orientation="Vertical" BackgroundColor="White" >
-            <ListView ItemsSource="{Binding Frutas}" HasUnevenRows="True" SeparatorColor="White" ItemTapped="ListView_ItemTapped">
+            <ListView ItemsSource="{Binding Dicas}" HasUnevenRows="True" SeparatorColor="White" ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -10,7 +10,7 @@
                                 <Image BackgroundColor="Olive"  HorizontalOptions="CenterAndExpand" Aspect="AspectFill" Source="{Binding UrlImagem}"
                                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
 					                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0.5}"/>
-                                <Label Text="{Binding Nome}" FontSize="Large" HorizontalTextAlignment="Center" FontAttributes="Bold" 
+                                <Label Text="{Binding NomeFruta}" FontSize="Large" HorizontalTextAlignment="Center" FontAttributes="Bold" 
                                        TextColor="Gray" VerticalOptions="Center" BackgroundColor="White"
 					                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=1}"/>
