@@ -25,6 +25,7 @@ namespace Como.ViewModel
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
                     Dicas.Insert(index, dica);
+                    await App.Database.UpsertItemAsync(dica);
                 }
             }
         }

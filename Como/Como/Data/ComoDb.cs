@@ -20,9 +20,16 @@ namespace Como.Data
             return database.Table<Dica>().ToListAsync();
         }
 
-        public Task<List<Dica>> GetItemsNotDoneAsync()
+        public Task<List<Dica>> GetItemsActiveAsync()
         {
-            return database.QueryAsync<Dica>("SELECT * FROM [UsuarioModel] WHERE [Done] = 0");
+            return database.QueryAsync<Dica>("SELECT * FROM [Dica] WHERE [Ativo] = 1");
+        }
+
+        public Task<List<Dica>> GetItemsAsync()
+        {
+            var usuario = database.Table<Dica>().ToListAsync();
+
+            return usuario;
         }
 
         public Task<Dica> GetItemAsync(int id)
@@ -32,7 +39,7 @@ namespace Como.Data
             return usuario;
         }
 
-        public Task<int> SaveItemAsync(Dica item)
+        public Task<int> UpsertItemAsync(Dica item)
         {
             if (item.ID != 0)
             {

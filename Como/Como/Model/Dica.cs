@@ -13,6 +13,7 @@ namespace Como.Model
     [DataContract]
     public class Dica : INotifyPropertyChanged
     {
+        [PrimaryKey, AutoIncrement]
         [DataMember(Name = "idDica")]
         public int ID { get; set; }
 
