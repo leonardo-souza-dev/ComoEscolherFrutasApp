@@ -3,6 +3,7 @@ using Como.Model;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace Como.ViewModel
 {
@@ -16,19 +17,6 @@ namespace Como.ViewModel
         public DicaViewModel(RepositoryIterator repositoryIterator)
         {
             RepositoryIterator = repositoryIterator;
-        }
-
-        public void DicasVM(List<Dica> lista)
-        {
-            for (int index = 0; index < lista.Count; index++)
-            {
-                var dica = lista[index];
-
-                if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
-                {
-                    Dicas.Insert(index, dica);
-                }
-            }
         }
 
         public async void ObterDicas()
@@ -47,7 +35,17 @@ namespace Como.ViewModel
             }
             RepositoryIterator.resetPosition();
 
-            DicasVM(lista);
+            for (int index = 0; index < lista.Count; index++)
+            {
+                var dica = lista[index];
+
+                DependencyService.Get<IPicture>().SavePictureToDisk(dica.ID.ToString(), dica.Imagem.Data);
+
+                if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
+                {
+                    Dicas.Insert(index, dica);
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

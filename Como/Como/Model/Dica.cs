@@ -33,9 +33,24 @@ namespace Como.Model
             }
         }
 
+        [Ignore]
+        [DataMember(Name = "imagem")]
+        public Imagem Imagem { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); }
+    }
+
+    [DataContract]
+    public class Imagem
+    {
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        [DataMember(Name = "data")]
+        public byte[] Data { get; set; }
+
     }
 
     public class DebugHelper
