@@ -46,6 +46,8 @@
     <Compile Include="Data\Interface\ISQLite.cs" />
     <Compile Include="Data\ComoDb.cs" />
     <Compile Include="Data\DicaRepositorio.cs" />
+    <Compile Include="Data\Repository\CloudRepository.cs" />
+    <Compile Include="Data\Repository\RepositoryIterator.cs" />
     <Compile Include="Data\Repository\DeviceRepository.cs" />
     <Compile Include="IFileHelper.cs" />
     <Compile Include="View\DicasView.xaml.cs">

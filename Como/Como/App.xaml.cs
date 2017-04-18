@@ -15,6 +15,9 @@ namespace Como
         public static DicaViewModel FrutasVM { get; set; }
         public static ConfiguracaoApp Config { get; set; }
 
+        private IRepository[] repositories;
+        private RepositoryIterator repositoryIterator;
+
 
         public App()
         {
@@ -22,8 +25,18 @@ namespace Como
 
             Config = new ConfiguracaoApp();
 
-            FrutasVM = new DicaViewModel();
+            DeviceRepository deviceRepository = new DeviceRepository();
+            CloudRepository cloudRepository = new CloudRepository();
+
+            repositories = new IRepository[2];
+            repositories[0] = deviceRepository;
+            repositories[1] = cloudRepository;
+            repositoryIterator = new RepositoryIterator(repositories);
+
+
+            FrutasVM = new DicaViewModel(repositoryIterator);
             MainPage = new DicasView();
+
         }
 
         public static ComoDb Database

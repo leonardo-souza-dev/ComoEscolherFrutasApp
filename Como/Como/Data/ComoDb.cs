@@ -27,9 +27,9 @@ namespace Como.Data
 
         public Task<List<Dica>> GetItemsAsync()
         {
-            var usuario = database.Table<Dica>().ToListAsync();
+            var dicas = database.Table<Dica>().ToListAsync();
 
-            return usuario;
+            return dicas;
         }
 
         public Task<Dica> GetItemAsync(int id)

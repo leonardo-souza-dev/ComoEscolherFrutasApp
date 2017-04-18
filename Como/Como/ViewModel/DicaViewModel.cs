@@ -11,13 +11,15 @@ namespace Como.ViewModel
         public ObservableCollection<Dica> Dicas { get { return _dicas; } set { _dicas = value; OnPropertyChanged("Dicas"); } }
         private ObservableCollection<Dica> _dicas = new ObservableCollection<Dica>();
 
+        public RepositoryIterator RepositoryIterator;
 
-        public async void ObterDicas()
+        public DicaViewModel(RepositoryIterator repositoryIterator)
         {
-            var lista = new List<Dica>();
+            RepositoryIterator = repositoryIterator;
+        }
 
-            lista = await DicaRepositorio.ObterDicas();
-
+        public void DicasVM(List<Dica> lista)
+        {
             for (int index = 0; index < lista.Count; index++)
             {
                 var dica = lista[index];
@@ -25,9 +27,27 @@ namespace Como.ViewModel
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
                     Dicas.Insert(index, dica);
-                    await App.Database.UpsertItemAsync(dica);
                 }
             }
+        }
+
+        public async void ObterDicas()
+        {
+            var lista = new List<Dica>();
+            bool encontrou = false;
+
+            while (!encontrou && RepositoryIterator.HasNext())
+            {
+                IRepository iRepository = (IRepository)RepositoryIterator.Next();
+                lista = await iRepository.ObterDicas();
+                if (lista != null && lista.Count > 0)
+                {
+                    encontrou = true;
+                }
+            }
+            RepositoryIterator.resetPosition();
+
+            DicasVM(lista);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

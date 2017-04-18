@@ -9,18 +9,18 @@ using System.Collections.Generic;
 
 namespace Como.Data
 {
-    public class DeviceRepository : IRepository, ISujeito, IObservador
+    public class CloudRepository : IRepository, ISujeito, IObservador
     {
         private List<IObservador> Observadores = new List<IObservador>();
 
-        public DeviceRepository()
+        public CloudRepository()
         {
 
         }
 
         public async Task<List<Dica>> ObterDicas()
         {
-            var dicas = await App.Database.GetItemsAsync();
+            var dicas = await Resposta<List<Dica>>(null, "obterdicas");
 
             return dicas;
         }
@@ -44,6 +44,25 @@ namespace Como.Data
         public void Atualizar(ISujeito s, string p, object v)
         {
             throw new NotImplementedException();
+        }
+
+        private static async Task<T> Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
+        {
+            var httpClient = new HttpClient();
+            var uri = App.Config.ObterUrlBaseWebApi(metodo);
+
+            if (conteudo != null)
+            {
+                var retorno = await new ClienteHttp().PostAsync<T>(uri, conteudo);
+
+                return retorno;
+            }
+            else
+            {
+                var retorno = await new ClienteHttp().GetAsync<T>(uri);
+
+                return retorno;
+            }
         }
     }
 }
