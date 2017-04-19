@@ -41,18 +41,18 @@ namespace Como.Data
             Observadores.Remove(o);
         }
 
-        public async void Atualizar(ISujeito s, string param, object valor)
+        public void Atualizar(ISujeito s, string param, object valor)
         {
             if (s != this)
             {
 
-                if (param.Equals("dica")) { }
+                if (param.Equals("dica"))
                 {
                     if (valor != null)
                     {
                         Dica dica = (Dica)valor as Dica;
 
-                        await App.Database.UpsertItemAsync(dica);
+                        App.Database.UpsertItemSync(dica);
                     }
                 }                
             }

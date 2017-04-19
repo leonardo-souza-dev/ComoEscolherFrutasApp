@@ -28,11 +28,9 @@ namespace Como.Model
         private string nomeArquivo;
         
         [Ignore]
-        public string UrlImagem { get {
-                return App.Config.ObterUrlImagem(nomeArquivo);
-            }
-        }
+        public string UrlImagem { get { return App.Config.ObterUrlImagem(nomeArquivo); } }
 
+        [Ignore]
         [DataMember(IsRequired = false)]
         public byte[] ImagemSqlite { get { return this.Imagem.Data; } set { this.Imagem.Data = value; } }
 

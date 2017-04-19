@@ -26,6 +26,11 @@ namespace Como.Data
             return database.QueryAsync<Dica>("SELECT * FROM [Dica] WHERE [Ativo] = 1");
         }
 
+        public int UpsertItemSync(Dica item)
+        {
+            return database.InsertOrReplaceAsync(item).Result;
+        }
+
         public List<Dica> GetItemsSync()
         {
             var dicas = database.Table<Dica>().ToListAsync().Result;
@@ -38,18 +43,6 @@ namespace Como.Data
             var usuario = database.Table<Dica>().Where(i => i.ID == id).FirstOrDefaultAsync();
 
             return usuario;
-        }
-
-        public Task<int> UpsertItemAsync(Dica item)
-        {
-            if (item.ID != 0)
-            {
-                return database.UpdateAsync(item);
-            }
-            else
-            {
-                return database.InsertAsync(item);
-            }
         }
 
         public Task<int> DeleteItemAsync(Dica item)
