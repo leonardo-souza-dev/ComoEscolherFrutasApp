@@ -18,9 +18,9 @@ namespace Como.Data
 
         }
 
-        public async Task<List<Dica>> ObterDicas()
+        public List<Dica> ObterDicas()
         {
-            var dicas = await App.Database.GetItemsAsync();
+            var dicas = App.Database.GetItemsSync();
 
             return dicas;
         }
@@ -41,9 +41,21 @@ namespace Como.Data
             Observadores.Remove(o);
         }
 
-        public void Atualizar(ISujeito s, string p, object v)
+        public async void Atualizar(ISujeito s, string param, object valor)
         {
-            throw new NotImplementedException();
+            if (s != this)
+            {
+
+                if (param.Equals("dica")) { }
+                {
+                    if (valor != null)
+                    {
+                        Dica dica = (Dica)valor as Dica;
+
+                        await App.Database.UpsertItemAsync(dica);
+                    }
+                }                
+            }
         }
     }
 }

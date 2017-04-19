@@ -35,5 +35,32 @@ namespace Como.Data
 
             return t;
         }
+        public T PostSync<T>(string uri, object objeto)
+        {
+            var httpClient = new HttpClient();
+
+            var json = JsonConvert.SerializeObject(objeto);
+            var contentPost = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = httpClient.PostAsync(uri, contentPost).Result;
+            var stream = response.Content.ReadAsStreamAsync().Result;
+            var ser = new DataContractJsonSerializer(typeof(T));
+            stream.Position = 0;
+
+            T t = (T)ser.ReadObject(stream);
+
+            return t;
+        }
+
+        public T GetSync<T>(string uri)
+        {
+            var httpClient = new HttpClient();
+            var response = httpClient.GetAsync(uri).Result;
+            var stream = response.Content.ReadAsStreamAsync().Result;
+            var ser = new DataContractJsonSerializer(typeof(T));
+            stream.Position = 0;
+            T t = (T)ser.ReadObject(stream);
+
+            return t;
+        }
     }
 }

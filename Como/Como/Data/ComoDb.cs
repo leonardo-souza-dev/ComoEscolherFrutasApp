@@ -1,6 +1,7 @@
 ﻿using Como.Model;
 using SQLite;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Como.Data
@@ -25,9 +26,9 @@ namespace Como.Data
             return database.QueryAsync<Dica>("SELECT * FROM [Dica] WHERE [Ativo] = 1");
         }
 
-        public Task<List<Dica>> GetItemsAsync()
+        public List<Dica> GetItemsSync()
         {
-            var dicas = database.Table<Dica>().ToListAsync();
+            var dicas = database.Table<Dica>().ToListAsync().Result;
 
             return dicas;
         }

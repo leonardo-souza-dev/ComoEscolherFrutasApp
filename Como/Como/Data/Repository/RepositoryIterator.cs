@@ -11,31 +11,29 @@ namespace Como.Data
 {
     public class RepositoryIterator : IITerador
     {
-        IRepository[]
-        itens;
-
-        int posicao = 0;
+        IRepository[] Itens;
+        int Posicao = 0;
 
         public RepositoryIterator(IRepository[] repos)
         {
-            itens = repos;
+            Itens = repos;
         }
 
         public void resetPosition()
         {
-            posicao = 0;
+            Posicao = 0;
         }
 
         public object Next()
         {
-            IRepository iRepository = itens[posicao];
-            posicao++;
+            IRepository iRepository = Itens[Posicao];
+            Posicao++;
             return iRepository;
         }
 
         public bool HasNext()
         {
-            if (posicao >= itens.Length || itens[posicao] == null)
+            if (Posicao >= Itens.Length || Itens[Posicao] == null)
             {
                 return false;
             }

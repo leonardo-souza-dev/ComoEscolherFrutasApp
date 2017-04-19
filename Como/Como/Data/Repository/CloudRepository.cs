@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Como.Model;
 using System;
 using System.Collections.Generic;
+using Xamarin.Forms;
 
 namespace Como.Data
 {
@@ -18,16 +19,26 @@ namespace Como.Data
 
         }
 
-        public async Task<List<Dica>> ObterDicas()
+        public List<Dica> ObterDicas()
         {
-            var dicas = await Resposta<List<Dica>>(null, "obterdicas");
+            var dicas = Resposta<List<Dica>>(null, "obterdicas");
+
+            foreach (var dica in dicas)
+            {
+                DependencyService.Get<IPicture>().SavePictureToDisk(dica.ID.ToString(), dica.Imagem.Data);
+                NotificarObservadores("dica", dica);
+            }
+            
 
             return dicas;
         }
 
-        public void NotificarObservadores(string p, object v)
+        public void NotificarObservadores(string param, object valor)
         {
-            throw new NotImplementedException();
+            foreach(IObservador observador in Observadores)
+            {
+                observador.Atualizar(this, param, valor);
+            }
         }
 
 
@@ -46,20 +57,20 @@ namespace Como.Data
             throw new NotImplementedException();
         }
 
-        private static async Task<T> Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
+        private T Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
         {
             var httpClient = new HttpClient();
             var uri = App.Config.ObterUrlBaseWebApi(metodo);
 
             if (conteudo != null)
             {
-                var retorno = await new ClienteHttp().PostAsync<T>(uri, conteudo);
+                var retorno = new ClienteHttp().PostSync<T>(uri, conteudo);
 
                 return retorno;
             }
             else
             {
-                var retorno = await new ClienteHttp().GetAsync<T>(uri);
+                var retorno = new ClienteHttp().GetSync<T>(uri);
 
                 return retorno;
             }

@@ -19,7 +19,7 @@ namespace Como.ViewModel
             RepositoryIterator = repositoryIterator;
         }
 
-        public async void ObterDicas()
+        public void ObterDicas()
         {
             var lista = new List<Dica>();
             bool encontrou = false;
@@ -27,7 +27,7 @@ namespace Como.ViewModel
             while (!encontrou && RepositoryIterator.HasNext())
             {
                 IRepository iRepository = (IRepository)RepositoryIterator.Next();
-                lista = await iRepository.ObterDicas();
+                lista = iRepository.ObterDicas();
                 if (lista != null && lista.Count > 0)
                 {
                     encontrou = true;
@@ -38,8 +38,6 @@ namespace Como.ViewModel
             for (int index = 0; index < lista.Count; index++)
             {
                 var dica = lista[index];
-
-                DependencyService.Get<IPicture>().SavePictureToDisk(dica.ID.ToString(), dica.Imagem.Data);
 
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {

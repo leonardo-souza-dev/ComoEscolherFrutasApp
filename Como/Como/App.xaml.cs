@@ -31,8 +31,11 @@ namespace Como
             repositories = new IRepository[2];
             repositories[0] = deviceRepository;
             repositories[1] = cloudRepository;
-            repositoryIterator = new RepositoryIterator(repositories);
 
+            deviceRepository.RegistrarObservador(cloudRepository);
+            cloudRepository.RegistrarObservador(deviceRepository);
+
+            repositoryIterator = new RepositoryIterator(repositories);
 
             FrutasVM = new DicaViewModel(repositoryIterator);
             MainPage = new DicasView();

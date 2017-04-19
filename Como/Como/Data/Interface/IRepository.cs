@@ -10,6 +10,6 @@ namespace Como.Data
 {
     public interface IRepository
     {
-        Task<List<Dica>> ObterDicas();
+        List<Dica> ObterDicas();
     }   
 }

@@ -33,6 +33,9 @@ namespace Como.Model
             }
         }
 
+        [DataMember(IsRequired = false)]
+        public byte[] ImagemSqlite { get { return this.Imagem.Data; } set { this.Imagem.Data = value; } }
+
         [Ignore]
         [DataMember(Name = "imagem")]
         public Imagem Imagem { get; set; }
