@@ -2,19 +2,25 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Como.View.DicasView" BackgroundColor="White" Title="lista">
     <ContentPage.Content>
         <StackLayout Padding="0" Margin="0" Orientation="Vertical" BackgroundColor="White" >
-            <ListView ItemsSource="{Binding Dicas}" HasUnevenRows="True" SeparatorColor="White" ItemTapped="ListView_ItemTapped">
+            <ListView x:Name="lista" ItemsSource="{Binding Dicas}" HasUnevenRows="True" SeparatorColor="White" ItemTapped="ListView_ItemTapped">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <RelativeLayout Padding="16" HorizontalOptions="Center" HeightRequest="96" BackgroundColor="White" VerticalOptions="Center">
-                                <Image BackgroundColor="Olive"  HorizontalOptions="CenterAndExpand" Aspect="AspectFill" Source="{Binding UrlImagem}"
+                            <StackLayout Padding="16" HorizontalOptions="Center" HeightRequest="96" BackgroundColor="White" VerticalOptions="Center">
+                                <!--<Image Source="http://www.psicologianoesporte.com.br/wp-content/uploads/2016/03/atencao-teste.jpg" />-->
+                                <Image Source="C:\Users\leona\AppData\Local\Packages\277c7193-3404-4fbf-b556-45b4b5b49f29_tvvg2v4s3vv0g\LocalState\000127.png" />
+                                <Label Text="{Binding NomeFruta}" FontSize="Large" HorizontalTextAlignment="Center" FontAttributes="Bold" 
+                                       TextColor="Gray" VerticalOptions="Center" BackgroundColor="White"/>
+                            </StackLayout>
+                        <!--<RelativeLayout Padding="16" HorizontalOptions="Center" HeightRequest="96" BackgroundColor="White" VerticalOptions="Center">
+                                <Image Source="{Binding NomeArquivo}" BackgroundColor="Olive"  HorizontalOptions="CenterAndExpand" Aspect="AspectFill" 
                                        RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
 					                   RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=X, Factor=0.5}"/>
                                 <Label Text="{Binding NomeFruta}" FontSize="Large" HorizontalTextAlignment="Center" FontAttributes="Bold" 
                                        TextColor="Gray" VerticalOptions="Center" BackgroundColor="White"
 					                   RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
                                        RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height,Factor=1}"/>
-                            </RelativeLayout>
+                            </RelativeLayout> -->
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

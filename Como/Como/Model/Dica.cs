@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
+using Xamarin.Forms;
 
 namespace Como.Model
 {
@@ -26,17 +27,19 @@ namespace Como.Model
         [DataMember(Name = "nomeArquivo")]
         public string NomeArquivo { get { return nomeArquivo; } set { nomeArquivo = value; OnPropertyChanged("NomeArquivo"); OnPropertyChanged("UrlImagem"); } }
         private string nomeArquivo;
-        
-        [Ignore]
-        public string UrlImagem { get { return App.Config.ObterUrlImagem(nomeArquivo); } }
-
-        [Ignore]
-        [DataMember(IsRequired = false)]
-        public byte[] ImagemSqlite { get { return this.Imagem.Data; } set { this.Imagem.Data = value; } }
 
         [Ignore]
         [DataMember(Name = "imagem")]
         public Imagem Imagem { get; set; }
+
+        [DataMember(Name = "hash")]
+        public string Hash { get; set; }
+
+        [Ignore]
+        public string CaminhoArquivo { get { return App.Helper.ObterCaminhoPadraoDevice(nomeArquivo); } }
+
+        [Ignore]
+        public Image ImagemBinding { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

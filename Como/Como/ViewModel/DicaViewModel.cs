@@ -41,7 +41,11 @@ namespace Como.ViewModel
 
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
+                    var img = new Image { Aspect = Aspect.AspectFit };
+                    img.Source = ImageSource.FromFile(dica.CaminhoArquivo);
+                    dica.ImagemBinding = img;
                     Dicas.Insert(index, dica);
+                    
                 }
             }
         }

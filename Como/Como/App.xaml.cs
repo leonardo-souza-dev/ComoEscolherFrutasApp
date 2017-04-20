@@ -13,7 +13,7 @@ namespace Como
         static ComoDb database;
 
         public static DicaViewModel FrutasVM { get; set; }
-        public static ConfiguracaoApp Config { get; set; }
+        public static Helper Helper { get; set; }
 
         private IRepository[] repositories;
         private RepositoryIterator repositoryIterator;
@@ -23,7 +23,7 @@ namespace Como
         {
             InitializeComponent();
 
-            Config = new ConfiguracaoApp();
+            Helper = new Helper();
 
             DeviceRepository deviceRepository = new DeviceRepository();
             CloudRepository cloudRepository = new CloudRepository();

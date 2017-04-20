@@ -24,7 +24,7 @@ namespace Como.Data
             foreach (var item in frutas)
             {
                 Debug.WriteLine("fruta.ID: " + item.ID);
-                Debug.WriteLine("fruta.ImagemUrl: " + item.UrlImagem);
+                //Debug.WriteLine("fruta.ImagemUrl: " + item.UrlImagem);
                 Debug.WriteLine("fruta.Dica: "+ item.Descricao);
             }
             Debug.WriteLine("</DEBUG ObterFrutas>");
@@ -34,7 +34,7 @@ namespace Como.Data
         private static async Task<T> Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
         {
             var httpClient = new HttpClient();
-            var uri = App.Config.ObterUrlBaseWebApi(metodo);
+            var uri = App.Helper.ObterUrlBaseWebApi(metodo);
 
             if (conteudo != null)
             {

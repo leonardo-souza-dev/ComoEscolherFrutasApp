@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace Como
 {
-    public class ConfiguracaoApp
+    public class Helper
     {
         bool DebugarAndroid = false;
         public bool UsarCloud { get { return false; } }
@@ -16,6 +16,13 @@ namespace Como
         {
             //return this.ObterUrlBaseWebApi() + "fruta?na=" + nomeArquivo;
             return "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/600px_HEX-008A79_rectangle_on_HEX-FEFCF0.svg/" + nomeArquivo;//TEMP
+        }
+
+        public string ObterCaminhoPadraoDevice(string arquivo)
+        {
+            var caminho = DependencyService.Get<IFileHelper>().GetLocalFilePath(arquivo);
+
+            return caminho;
         }
 
         public string ObterUrlBaseWebApi(string metodo = null)

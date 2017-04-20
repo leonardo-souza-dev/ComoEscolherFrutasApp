@@ -12,11 +12,93 @@ namespace Como.View
     {
         public DicasView()
         {
-            this.InitializeComponent();
+            //this.InitializeComponent();
 
             App.FrutasVM.ObterDicas();
 
-            this.BindingContext = App.FrutasVM;
+            //this.BindingContext = App.FrutasVM;
+
+
+            this.Title = "catioro fofo";
+
+            Content = ObterConteudo();
+        }
+
+
+        private StackLayout ObterConteudo()
+        {
+            ListView postsListView = new ListView { HasUnevenRows = true };
+            postsListView.ItemTemplate = new DataTemplate(typeof(CustomPostCell));
+
+            postsListView.ItemsSource = App.FrutasVM.Dicas;
+
+            return new StackLayout
+            {
+                Padding = new Thickness(0, 20, 0, 0),
+                Children = {
+                    new Label {
+                        Text = "explorar catioros fofos",
+                        FontAttributes = FontAttributes.Bold,
+                        HorizontalOptions = LayoutOptions.Center
+                    },
+                    postsListView
+                }
+            };
+        }
+
+        public class AspectRatioContainer : ContentView
+        {
+            protected override SizeRequest OnMeasure(double widthConstraint, double heightConstraint)
+            {
+                return new SizeRequest(new Size(widthConstraint, widthConstraint * this.AspectRatio));
+            }
+
+            public double AspectRatio { get; set; }
+        }
+
+        public class CustomPostCell : ViewCell
+        {
+            public CustomPostCell()
+            {
+                var fotoImage = new Image { Margin = new Thickness(5, 15, 5, 5), VerticalOptions = LayoutOptions.CenterAndExpand };
+                var avatarImage = new Image { Margin = new Thickness(5, 5, 5, 5) };
+                var descricaoLabel = new Label { FontSize = 14 };
+                var curtirButton = new Button { FontSize = 10, Text = "Curtir", Margin = new Thickness(5, 5, 5, 5) };
+                var numCurtidasLabel = new Label { FontSize = 10, Text = "22", Margin = new Thickness(5, 5, 5, 5) };
+
+                var principalLayout = new StackLayout()
+                {
+                    Padding = new Thickness(0, 0, 0, 0),
+                    Orientation = StackOrientation.Vertical,
+                    HorizontalOptions = new LayoutOptions { Alignment = LayoutAlignment.Center },
+                    Margin = 0,
+                    Children =
+                        {
+                            fotoImage,
+                            new StackLayout()
+                            {
+                                Padding = new Thickness(0, 0, 0, 0),
+                                Orientation = StackOrientation.Horizontal,
+                                Margin = 0,
+                                Children = { avatarImage, descricaoLabel }
+                            },
+                            new StackLayout()
+                            {
+                                Padding = new Thickness(0, 0, 0, 0),
+                                Orientation = StackOrientation.Horizontal,
+                                Margin = 0,
+                                Children = { curtirButton, numCurtidasLabel }
+                            }
+                        }
+                };
+
+                //fotoImage.SetBinding(Image.SourceProperty, new Binding("FotoUrl"));
+                fotoImage.Source = ImageSource.FromFile(@"C:\Users\leona\Documents\Stuff\coisas\TI\projetos\tudo Como\melancia.png");
+                avatarImage.SetBinding(Image.SourceProperty, new Binding("AvatarUrl"));
+                descricaoLabel.SetBinding(Label.TextProperty, new Binding("Legenda"));
+
+                View = principalLayout;
+            }
         }
 
         private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
