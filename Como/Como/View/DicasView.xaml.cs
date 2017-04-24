@@ -1,6 +1,8 @@
 ﻿using Como.Model;
+using PCLStorage;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -61,10 +63,6 @@ namespace Como.View
             public CustomPostCell()
             {
                 var fotoImage = new Image { Margin = new Thickness(5, 15, 5, 5), VerticalOptions = LayoutOptions.CenterAndExpand };
-                var avatarImage = new Image { Margin = new Thickness(5, 5, 5, 5) };
-                var descricaoLabel = new Label { FontSize = 14 };
-                var curtirButton = new Button { FontSize = 10, Text = "Curtir", Margin = new Thickness(5, 5, 5, 5) };
-                var numCurtidasLabel = new Label { FontSize = 10, Text = "22", Margin = new Thickness(5, 5, 5, 5) };
 
                 var principalLayout = new StackLayout()
                 {
@@ -74,29 +72,12 @@ namespace Como.View
                     Margin = 0,
                     Children =
                         {
-                            fotoImage,
-                            new StackLayout()
-                            {
-                                Padding = new Thickness(0, 0, 0, 0),
-                                Orientation = StackOrientation.Horizontal,
-                                Margin = 0,
-                                Children = { avatarImage, descricaoLabel }
-                            },
-                            new StackLayout()
-                            {
-                                Padding = new Thickness(0, 0, 0, 0),
-                                Orientation = StackOrientation.Horizontal,
-                                Margin = 0,
-                                Children = { curtirButton, numCurtidasLabel }
-                            }
+                            fotoImage
                         }
                 };
 
-                //fotoImage.SetBinding(Image.SourceProperty, new Binding("FotoUrl"));
-                fotoImage.Source = ImageSource.FromFile(@"C:\Users\leona\Documents\Stuff\coisas\TI\projetos\tudo Como\melancia.png");
-                avatarImage.SetBinding(Image.SourceProperty, new Binding("AvatarUrl"));
-                descricaoLabel.SetBinding(Label.TextProperty, new Binding("Legenda"));
-
+                fotoImage.SetBinding(Image.SourceProperty, new Binding("ImagemBindingSource"));
+                
                 View = principalLayout;
             }
         }

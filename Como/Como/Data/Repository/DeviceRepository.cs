@@ -17,8 +17,6 @@ namespace Como.Data
                     if (valor != null)
                     {
                         Dica dica = (Dica)valor as Dica;
-
-                        var dicaLocal = App.Database.GetItemSync(dica.ID);
                         
                         App.Database.UpsertDicaSync(dica);
                     }                    

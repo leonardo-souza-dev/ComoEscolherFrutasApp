@@ -41,6 +41,15 @@ namespace Como.Model
         [Ignore]
         public Image ImagemBinding { get; set; }
 
+        [Ignore]
+        public ImageSource ImagemBindingSource { get { return this.ImagemBinding.Source; } }
+
+
+        public Dica()
+        {
+            this.ImagemBinding = new Image();
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); }
@@ -61,7 +70,7 @@ namespace Como.Model
     {
         public void Print<T>(IEnumerable<T> lista)
         {
-            Debug.WriteLine(" ****** * * * * *  DEBUNG PRINT * * * ******** ");
+            Debug.WriteLine(" ****** * * * * *  DEBUG PRINT * * * ******** ");
 
             Type typeParameterType = typeof(T);
 

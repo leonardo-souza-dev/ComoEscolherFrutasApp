@@ -1,8 +1,10 @@
 ﻿using Como.Data;
 using Como.Model;
+using PCLStorage;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using Xamarin.Forms;
 
 namespace Como.ViewModel
@@ -41,9 +43,13 @@ namespace Como.ViewModel
 
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
-                    var img = new Image { Aspect = Aspect.AspectFit };
-                    img.Source = ImageSource.FromFile(dica.CaminhoArquivo);
-                    dica.ImagemBinding = img;
+                    Image image = new Image();
+                    IFolder rootFolder = FileSystem.Current.LocalStorage;
+                    IFile file = rootFolder.GetFileAsync(dica.NomeArquivo).Result;
+                    Stream s = file.OpenAsync(FileAccess.Read).Result;
+
+                    dica.ImagemBinding.Source = ImageSource.FromStream(() => s);
+
                     Dicas.Insert(index, dica);
                     
                 }
