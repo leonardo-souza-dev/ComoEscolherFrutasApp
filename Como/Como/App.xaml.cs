@@ -38,7 +38,8 @@ namespace Como
             repositoryIterator = new RepositoryIterator(repositories);
 
             FrutasVM = new DicaViewModel(repositoryIterator);
-            MainPage = new DicasView();
+
+            MainPage = new DicasView();//view que será chamada
 
         }
 

@@ -14,14 +14,8 @@ namespace Como.View
     {
         public DicasView()
         {
-            //this.InitializeComponent();
-
             App.FrutasVM.ObterDicas();
-
-            //this.BindingContext = App.FrutasVM;
-
-
-            this.Title = "catioro fofo";
+            this.Title = "Como Escolher Frutas!";
 
             Content = ObterConteudo();
         }
@@ -39,7 +33,7 @@ namespace Como.View
                 Padding = new Thickness(0, 20, 0, 0),
                 Children = {
                     new Label {
-                        Text = "explorar catioros fofos",
+                        Text = "Como Escolher Frutas!",
                         FontAttributes = FontAttributes.Bold,
                         HorizontalOptions = LayoutOptions.Center
                     },

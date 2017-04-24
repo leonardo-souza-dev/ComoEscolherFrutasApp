@@ -42,7 +42,7 @@ namespace Como.Data
 
         public Dica GetItemSync(int pk)
         {
-            var dica = database2.Get<Dica>(pk);
+            var dica = database2.Find<Dica>(pk);
 
             return dica;
         }

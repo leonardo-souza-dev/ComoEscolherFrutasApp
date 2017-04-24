@@ -30,7 +30,7 @@ namespace Como.ViewModel
             {
                 IRepository iRepository = (IRepository)RepositoryIterator.Next();
                 lista = iRepository.ObterDicas();
-                if (lista != null && lista.Count > 0)
+                if (lista != null && lista.Count > 0) //TODO: Implementar sincronizacao do dado via hash
                 {
                     encontrou = true;
                 }
