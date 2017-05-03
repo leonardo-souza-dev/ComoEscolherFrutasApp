@@ -51,6 +51,7 @@
     <Compile Include="Data\Repository\RepositoryIterator.cs" />
     <Compile Include="Data\Repository\DeviceRepository.cs" />
     <Compile Include="IFileHelper.cs" />
+    <Compile Include="ViewModel\DicaViewModel2.cs" />
     <Compile Include="View\DicasView.xaml.cs">
       <DependentUpon>DicasView.xaml</DependentUpon>
     </Compile>

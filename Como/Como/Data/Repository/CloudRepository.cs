@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Como.Data
 {
-    public class CloudRepository : IRepository, ISujeito, IObservador
+    public class CloudRepository
     {
         #region ObservablePattern
 
@@ -47,9 +48,9 @@ namespace Como.Data
 
         #endregion
 
-        public List<Dica> ObterDicas()
+        public async Task<List<Dica>> ObterDicas()
         {
-            var dicas = Resposta<List<Dica>>(null, "obterdicas");
+            var dicas = await Resposta<List<Dica>>(null, "obterdicas");
 
             foreach (var dica in dicas)
             {
@@ -60,22 +61,23 @@ namespace Como.Data
             return dicas;
         }
 
-        private T Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
+        private async Task<T> Resposta<T>(object conteudo, string metodo, bool ehDownload = false)
         {
-            var httpClient = new HttpClient();
             var uri = App.Helper.ObterUrlBaseWebApi(metodo);
 
             if (conteudo != null)
             {
-                var retorno = new ClienteHttp().PostSync<T>(uri, conteudo);
+                var cliente = new ClienteHttp();
+                var res = await cliente.PostAsync<T>(uri, conteudo);
 
-                return retorno;
+                return res;
             }
             else
             {
-                var retorno = new ClienteHttp().GetSync<T>(uri);
+                var cliente = new ClienteHttp();
+                var res = await cliente.GetAsync<T>(uri);
 
-                return retorno;
+                return res;
             }
         }
     }

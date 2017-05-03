@@ -21,25 +21,14 @@ namespace Como.ViewModel
             RepositoryIterator = repositoryIterator;
         }
 
-        public void ObterDicas()
+        public async void ObterDicas()
         {
-            var lista = new List<Dica>();
-            bool encontrou = false;
+            DeviceRepository deviceRepository = new DeviceRepository();
+            var dicas = deviceRepository.ObterDicas();
 
-            while (!encontrou && RepositoryIterator.HasNext())
+            for (int index = 0; index < dicas.Count; index++)
             {
-                IRepository iRepository = (IRepository)RepositoryIterator.Next();
-                lista = iRepository.ObterDicas();
-                if (lista != null && lista.Count > 0) //TODO: Implementar sincronizacao do dado via hash
-                {
-                    encontrou = true;
-                }
-            }
-            RepositoryIterator.resetPosition();
-
-            for (int index = 0; index < lista.Count; index++)
-            {
-                var dica = lista[index];
+                var dica = dicas[index];
 
                 if (index + 1 > Dicas.Count || Dicas[index].Equals(dica))
                 {
@@ -51,7 +40,32 @@ namespace Como.ViewModel
                     dica.ImagemBinding.Source = ImageSource.FromStream(() => s);
 
                     Dicas.Insert(index, dica);
-                    
+                }
+            }
+
+            CloudRepository cloudRepository = new CloudRepository();
+            var dicasCloud = await cloudRepository.ObterDicas();
+
+            if (dicasCloud != null && dicasCloud.Count > 0)
+            {
+                for (int index = 0; index < dicas.Count; index++)
+                {
+                    var dicaCloud = dicas[index];
+
+                    Image image = new Image();
+                    IFolder rootFolder = FileSystem.Current.LocalStorage;
+                    IFile file = rootFolder.GetFileAsync(dicaCloud.NomeArquivo).Result;
+                    Stream s = file.OpenAsync(FileAccess.Read).Result;
+
+                    dicaCloud.ImagemBinding.Source = ImageSource.FromStream(() => s);
+
+                    for(int i = 0; i < Dicas.Count; i++)
+                    {
+                        if (Dicas[i].ID == dicaCloud.ID)
+                        {
+                            Dicas[i] = dicaCloud;
+                        }
+                    }
                 }
             }
         }
