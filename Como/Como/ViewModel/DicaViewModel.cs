@@ -15,7 +15,10 @@ namespace Como.ViewModel
         private ObservableCollection<Dica> _dicas = new ObservableCollection<Dica>();
 
         public RepositoryIterator RepositoryIterator;
+        public DicaViewModel()
+        {
 
+        }
         public DicaViewModel(RepositoryIterator repositoryIterator)
         {
             RepositoryIterator = repositoryIterator;

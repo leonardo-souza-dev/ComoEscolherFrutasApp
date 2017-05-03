@@ -27,14 +27,7 @@ namespace Como.Data
         }
 
         private List<IObservador> Observadores = new List<IObservador>();
-
-        public void NotificarObservadores(string param, object valor)
-        {
-            foreach (IObservador observador in Observadores)
-            {
-                observador.Atualizar(this, param, valor);
-            }
-        }
+        
 
         public void RegistrarObservador(IObservador o)
         {
@@ -55,7 +48,7 @@ namespace Como.Data
             foreach (var dica in dicas)
             {
                 DependencyService.Get<IPicture>().SavePictureToDisk(dica.NomeArquivo, dica.Imagem.Data);
-                NotificarObservadores("OBTERDICAS", dica);
+                //NotificarObservadores("OBTERDICAS", dica);
             }            
 
             return dicas;

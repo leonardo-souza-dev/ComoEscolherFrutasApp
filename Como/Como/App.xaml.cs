@@ -15,8 +15,8 @@ namespace Como
         public static DicaViewModel FrutasVM { get; set; }
         public static Helper Helper { get; set; }
 
-        private IRepository[] repositories;
-        private RepositoryIterator repositoryIterator;
+        //private IRepository[] repositories;
+        //private RepositoryIterator repositoryIterator;
 
 
         public App()
@@ -25,19 +25,20 @@ namespace Como
 
             Helper = new Helper();
 
-            DeviceRepository deviceRepository = new DeviceRepository();
-            CloudRepository cloudRepository = new CloudRepository();
+            //DeviceRepository deviceRepository = new DeviceRepository();
+            //CloudRepository cloudRepository = new CloudRepository();
 
-            repositories = new IRepository[2];
-            repositories[0] = deviceRepository;
-            repositories[1] = cloudRepository;
+            //repositories = new IRepository[2];
+            //repositories[0] = deviceRepository;
+            //repositories[1] = cloudRepository;
 
-            deviceRepository.RegistrarObservador(cloudRepository);
-            cloudRepository.RegistrarObservador(deviceRepository);
+            //deviceRepository.RegistrarObservador(cloudRepository);
+            //cloudRepository.RegistrarObservador(deviceRepository);
 
-            repositoryIterator = new RepositoryIterator(repositories);
+            //repositoryIterator = new RepositoryIterator(repositories);
 
-            FrutasVM = new DicaViewModel(repositoryIterator);
+            //FrutasVM = new DicaViewModel(repositoryIterator);
+            FrutasVM = new DicaViewModel();
 
             MainPage = new DicasView();//view que será chamada
 
